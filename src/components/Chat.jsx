@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 export default function Chat() {
   const [msg, setMsg] = useState("")
+  const [showPopup, setShowPopup] = useState(false);
 
   // 1. Obtenemos del contexto todo lo necesario
   const { users, selectedUser, setUsers } = useChat()
@@ -53,8 +54,25 @@ export default function Chat() {
     navigate("/")
   }
 
+  const handleShowPopup = () => {
+    setShowPopup(true);
+  }
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  }
+
+
   return (
     <div className="chat">
+      {
+        showPopup === true && <section className="cont-popup">
+          <div className="popup">
+            <h2>Settings</h2>
+            <button onClick={handleClosePopup}>Cerrar</button>
+          </div>
+        </section>
+      }
       <header className="chat-header">
         <div>
           <div className="chat-user">
@@ -71,8 +89,8 @@ export default function Chat() {
         <div className="chat-actions">
           <button title="Camera">📷</button>
           <button title="Gallery">🖼️</button>
-          <button title="Settings">⚙️</button>
-          <button title="Help">❓</button>
+          <button title="Settings" onClick={handleShowPopup}>⚙️</button>
+          <Link to="/help" title="Help">❓</Link>
           <button onClick={handleLogout}>Cerrar Sesión</button>
         </div>
       </header>
