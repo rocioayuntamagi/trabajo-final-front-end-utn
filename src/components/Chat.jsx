@@ -1,30 +1,28 @@
 import { useState, useEffect } from "react"
 import { useChat } from "../context/ChatContext"
-import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"
+
 
 export default function Chat() {
   const [msg, setMsg] = useState("")
   const [showPopup, setShowPopup] = useState(false);
-  const [theme, setTheme] = useState("light")
+
+  // Cargamos el tema guardado (si existe), si no usamos 'light' por defecto
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [username, setUsername] = useState(localStorage.getItem("username") || "Invitado");
 
   // 1. Obtenemos del contexto todo lo necesario
   const { users, selectedUser, setUsers } = useChat()
-
   // 2. Buscamos el usuario activo
   const user = users.find(u => u.id === selectedUser)
-
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Forzar modo claro por defecto al iniciar (ignoramos localStorage)
-    // Si quieres mantener la preferencia previa almacenada, cambiamos esto.
-    setTheme("light")
-    document.body.classList.remove("dark-mode")
-  }, [])
+    // Aplicar el tema actual al montar / cuando cambie
+    applyTheme(theme)
+  }, [theme]);
 
-
-  // Aplica el tema a la página (añade/quita la clase 'dark-mode')
+  // Función para aplicar el tema: añade/quita la clase 'dark-mode' en <body>
   const applyTheme = (themeName) => {
     if (themeName === "dark") {
       document.body.classList.add("dark-mode")
@@ -32,8 +30,6 @@ export default function Chat() {
       document.body.classList.remove("dark-mode")
     }
   }
-
-
 
   if (!user) {
     return (
@@ -88,9 +84,10 @@ export default function Chat() {
 
   // Guardar cambios del tema en localStorage
   const handleSaveChanges = () => {
-    // Aplicamos y persistimos la elección cuando el usuario hace click en "Guardar cambios"
+    // Aplicamos el tema y persistimos tanto el tema como el username
     applyTheme(theme)
     localStorage.setItem("theme", theme)
+    localStorage.setItem("username", username)
     setShowPopup(false)
   }
 
@@ -102,7 +99,6 @@ export default function Chat() {
   }
 
 
-
   return (
     <div className="chat">
       {
@@ -111,10 +107,19 @@ export default function Chat() {
           <div className="popup">
             <h2>Configuración</h2>
             <div className="setting-item">
-              <label htmlFor="theme-select">Tema:</label>
+              <label htmlFor="username">Nombre de usuario:</label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Nombre de usuario" />
+            </div>
+            <div className="setting-item">
+              <label htmlFor="theme-select">Ahorro de energia: </label>
               <select id="theme-select" value={theme} onChange={handleThemeChange}>
-                <option value="light">Claro 🌞</option>
-                <option value="dark">Oscuro 🌙</option>
+                <option value="light">Apagado</option>
+                <option value="dark">Encendido</option>
               </select>
             </div>
             <div className="popup-actions">
