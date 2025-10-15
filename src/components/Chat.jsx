@@ -10,10 +10,11 @@ export default function Chat() {
   // Cargamos el tema guardado (si existe), si no usamos 'light' por defecto
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [username, setUsername] = useState(localStorage.getItem("username") || "Invitado");
+  const [language, setLanguage] = useState(localStorage.getItem("language") || "es");
 
-  // 1. Obtenemos del contexto todo lo necesario
+  // Obtenemos del contexto todo lo necesario
   const { users, selectedUser, setUsers } = useChat()
-  // 2. Buscamos el usuario activo
+  // Buscamos el usuario activo
   const user = users.find(u => u.id === selectedUser)
   const navigate = useNavigate()
 
@@ -22,12 +23,38 @@ export default function Chat() {
     applyTheme(theme)
   }, [theme]);
 
-  // Función para aplicar el tema: añade/quita la clase 'dark-mode' en <body>
+
   const applyTheme = (themeName) => {
     if (themeName === "dark") {
       document.body.classList.add("dark-mode")
     } else {
       document.body.classList.remove("dark-mode")
+    }
+  }
+
+  // Traducciones para los textos contenidos únicamente dentro del popup
+  const texts = {
+    es: {
+      title: "Configuración",
+      usernameLabel: "Nombre de usuario:",
+      usernamePlaceholder: "Nombre de usuario",
+      languageLabel: "Idioma:",
+      energyLabel: "Ahorro de energia:",
+      optionLight: "Apagado",
+      optionDark: "Encendido",
+      save: "Guardar cambios",
+      close: "Cerrar"
+    },
+    en: {
+      title: "Settings",
+      usernameLabel: "Username:",
+      usernamePlaceholder: "Username",
+      languageLabel: "Language:",
+      energyLabel: "Energy saver:",
+      optionLight: "Off",
+      optionDark: "On",
+      save: "Save changes",
+      close: "Close"
     }
   }
 
@@ -39,12 +66,12 @@ export default function Chat() {
     )
   }
 
-  // 3. Manejo del input
+  // Manejo del input
   const handleChange = (event) => {
     setMsg(event.target.value)
   }
 
-  // 4. Cuando enviamos el formulario
+  // Cuando enviamos el formulario
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -61,7 +88,7 @@ export default function Chat() {
         : u
     )
 
-    setUsers(updatedUsers) // esto dispara el useEffect del contexto que guarda en localStorage
+    setUsers(updatedUsers)
 
     setMsg("")
   }
@@ -84,16 +111,15 @@ export default function Chat() {
 
   // Guardar cambios del tema en localStorage
   const handleSaveChanges = () => {
-    // Aplicamos el tema y persistimos tanto el tema como el username
     applyTheme(theme)
     localStorage.setItem("theme", theme)
     localStorage.setItem("username", username)
+    localStorage.setItem("language", language)
     setShowPopup(false)
   }
 
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value
-    // Hacemos preview del tema al cambiar la selección dentro del popup
     setTheme(selectedTheme)
     applyTheme(selectedTheme)
   }
@@ -105,26 +131,33 @@ export default function Chat() {
         showPopup === true &&
         <section className="cont-popup">
           <div className="popup">
-            <h2>Configuración</h2>
+            <h2>{texts[language].title}</h2>
             <div className="setting-item">
-              <label htmlFor="username">Nombre de usuario:</label>
+              <label htmlFor="username">{texts[language].usernameLabel}</label>
               <input
                 id="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Nombre de usuario" />
+                placeholder={texts[language].usernamePlaceholder} />
             </div>
             <div className="setting-item">
-              <label htmlFor="theme-select">Ahorro de energia: </label>
+              <label htmlFor="language-select">{texts[language].languageLabel}</label>
+              <select id="language-select" value={language} onChange={(e) => setLanguage(e.target.value)}>
+                <option value="es">Español</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+            <div className="setting-item">
+              <label htmlFor="theme-select">{texts[language].energyLabel}</label>
               <select id="theme-select" value={theme} onChange={handleThemeChange}>
-                <option value="light">Apagado</option>
-                <option value="dark">Encendido</option>
+                <option value="light">{texts[language].optionLight}</option>
+                <option value="dark">{texts[language].optionDark}</option>
               </select>
             </div>
             <div className="popup-actions">
-              <button className="keep-info" onClick={handleSaveChanges} > Guardar cambios </button>
-              <button className="close" onClick={handleClosePopup}>Cerrar</button>
+              <button className="keep-info" onClick={handleSaveChanges} > {texts[language].save} </button>
+              <button className="close" onClick={handleClosePopup}>{texts[language].close}</button>
             </div>
           </div>
         </section>

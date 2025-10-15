@@ -384,6 +384,46 @@ form .text-info {
   cursor: pointer;
 }
 
+
+.help-page {
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: #333;
+}
+
+.help-page h1 {
+  text-align: center;
+  color: #02c4dd;
+  margin-bottom: 20px;
+}
+
+.help-section {
+  margin-bottom: 30px;
+  background-color: whitesmoke;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.1);
+}
+
+.help-section h2 {
+  margin-bottom: 10px;
+  color: #02c4dd;
+}
+
+.help-section ul {
+  list-style-type: disc;
+  padding-left: 25px;
+}
+
+.help-footer {
+  text-align: center;
+  margin-top: 30px;
+  font-style: italic;
+  color: gray;
+}
+
 /*Responsive minimo para mobile*/
 
 @media (max-width: 480px) {
@@ -467,4 +507,13 @@ body.dark-mode .popup {
   background-color: #333;
   color: white;
   border: 1px solid #888;
+}
+
+.dark-mode .help-page {
+  color: #f2f2f2;
+}
+
+.dark-mode .help-section {
+  background-color: #333;
+  box-shadow: 5px 5px 15px -5px rgba(255, 255, 255, 0.1);
 }
