@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useChat } from "../context/ChatContext"
 import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export default function Chat() {
   const [msg, setMsg] = useState("")
   const [showPopup, setShowPopup] = useState(false);
+  const [theme, setTheme] = useState("light")
 
   // 1. Obtenemos del contexto todo lo necesario
   const { users, selectedUser, setUsers } = useChat()
@@ -13,6 +15,25 @@ export default function Chat() {
   const user = users.find(u => u.id === selectedUser)
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    // Forzar modo claro por defecto al iniciar (ignoramos localStorage)
+    // Si quieres mantener la preferencia previa almacenada, cambiamos esto.
+    setTheme("light")
+    document.body.classList.remove("dark-mode")
+  }, [])
+
+
+  // Aplica el tema a la página (añade/quita la clase 'dark-mode')
+  const applyTheme = (themeName) => {
+    if (themeName === "dark") {
+      document.body.classList.add("dark-mode")
+    } else {
+      document.body.classList.remove("dark-mode")
+    }
+  }
+
+
 
   if (!user) {
     return (
@@ -49,11 +70,14 @@ export default function Chat() {
     setMsg("")
   }
 
+  // Logout
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn")
     navigate("/")
   }
 
+
+  // Abrir y cerrar Popup
   const handleShowPopup = () => {
     setShowPopup(true);
   }
@@ -62,14 +86,41 @@ export default function Chat() {
     setShowPopup(false);
   }
 
+  // Guardar cambios del tema en localStorage
+  const handleSaveChanges = () => {
+    // Aplicamos y persistimos la elección cuando el usuario hace click en "Guardar cambios"
+    applyTheme(theme)
+    localStorage.setItem("theme", theme)
+    setShowPopup(false)
+  }
+
+  const handleThemeChange = (e) => {
+    const selectedTheme = e.target.value
+    // Hacemos preview del tema al cambiar la selección dentro del popup
+    setTheme(selectedTheme)
+    applyTheme(selectedTheme)
+  }
+
+
 
   return (
     <div className="chat">
       {
-        showPopup === true && <section className="cont-popup">
+        showPopup === true &&
+        <section className="cont-popup">
           <div className="popup">
-            <h2>Settings</h2>
-            <button onClick={handleClosePopup}>Cerrar</button>
+            <h2>Configuración</h2>
+            <div className="setting-item">
+              <label htmlFor="theme-select">Tema:</label>
+              <select id="theme-select" value={theme} onChange={handleThemeChange}>
+                <option value="light">Claro 🌞</option>
+                <option value="dark">Oscuro 🌙</option>
+              </select>
+            </div>
+            <div className="popup-actions">
+              <button className="keep-info" onClick={handleSaveChanges} > Guardar cambios </button>
+              <button className="close" onClick={handleClosePopup}>Cerrar</button>
+            </div>
           </div>
         </section>
       }

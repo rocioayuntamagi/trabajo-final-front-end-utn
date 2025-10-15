@@ -18,6 +18,26 @@
   flex-direction: column;
 }
 
+.sidebar input[type="text"] {
+  background-color: white;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 5px;
+  width: 90%;
+}
+
+.dark-mode .sidebar {
+  background-color: #2b2b2b;
+  color: #eee;
+}
+
+.dark-mode .sidebar input[type="text"] {
+  background-color: #3a3a3a;
+  color: white;
+  border: 1px solid #555;
+}
+
 .search {
   padding: 10px;
   border: none;
@@ -266,11 +286,17 @@ form .text-info {
 }
 
 .popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   background-color: whitesmoke;
   padding: 20px;
   border-radius: 10px;
   width: 60%;
   box-shadow: 10px 10px 15px -5px rgba(0, 0, 0, 0.205);
+
 }
 
 .popup button {
@@ -280,6 +306,30 @@ form .text-info {
   border-radius: 5px;
   background-color: #02c4dd;
   color: white;
+  cursor: pointer;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: space-around;
+  gap: 80px;
+}
+
+.keep-info {
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.close {
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
   cursor: pointer;
 }
 
@@ -309,4 +359,79 @@ form .text-info {
   .popup {
     width: 80%;
   }
+}
+
+/* 🌙 MODO OSCURO */
+body.dark-mode {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+body.dark-mode .sidebar {
+  background-color: #1e1e1e;
+  border-right: 1px solid #333;
+}
+
+body.dark-mode .chat-header {
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #333;
+  color: #f0f0f0;
+}
+
+body.dark-mode .chat-messages {
+  background-color: #1b1b1b;
+}
+
+body.dark-mode .message {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+}
+
+body.dark-mode .chat-footer {
+  background-color: #1b1b1b;
+  border-top: 1px solid #333;
+}
+
+body.dark-mode .chat-footer input {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+body.dark-mode .chat-footer button {
+  background-color: #0d6efd;
+}
+
+body.dark-mode .popup {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.setting-item label {
+  font-weight: bold;
+  color: #333;
+
+}
+
+.setting-item select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.setting-item select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
 }
