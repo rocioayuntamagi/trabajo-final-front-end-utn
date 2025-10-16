@@ -295,8 +295,16 @@ form .text-info {
   padding: 20px;
   border-radius: 10px;
   width: 60%;
+  max-width: 540px;
+  /* keep popup from becoming too wide on large screens */
   box-shadow: 10px 10px 15px -5px rgba(0, 0, 0, 0.205);
+}
 
+.popup h2 {
+  border-bottom: 2px solid #00c6ff;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
 }
 
 .popup button {
@@ -320,6 +328,9 @@ form .text-info {
   align-items: center;
   gap: 10px;
   margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
 }
 
 .setting-item label {
@@ -329,13 +340,20 @@ form .text-info {
 }
 
 .setting-item select {
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #f5f5f5;
-  color: #333;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 8px 36px 8px 10px;
+  /* room for the arrow */
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  background-color: #f7f9fa;
+  color: #222;
+  width: 180px;
+  min-width: 140px;
+  font-size: 15px;
   cursor: pointer;
-  font-size: 14px;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
 }
 
 .setting-item select:focus {
@@ -356,14 +374,14 @@ form .text-info {
   color: #333;
 }
 
-.setting-item select,
 .setting-item input {
-  padding: 5px 10px;
+  padding: 8px 10px;
   border: 1px solid gray;
-  border-radius: 5px;
+  border-radius: 6px;
   outline: none;
-  width: 50%;
-  font-size: 14px;
+  width: 180px;
+  min-width: 140px;
+  font-size: 15px;
 }
 
 .keep-info {
@@ -371,7 +389,7 @@ form .text-info {
   right: 10px;
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
 }
 
@@ -380,11 +398,11 @@ form .text-info {
   right: 10px;
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
 }
 
-/* Options popup in header */
+
 .options-container {
   position: relative;
 }
@@ -496,7 +514,15 @@ form .text-info {
   }
 
   .popup {
-    width: 80%;
+    width: 90%;
+  }
+
+  /* make selects/inputs full width on small screens */
+  .setting-item select,
+  .setting-item input {
+    width: 100%;
+    min-width: 0;
+    font-size: 15px;
   }
 }
 

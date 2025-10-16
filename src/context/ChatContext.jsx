@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react"
 
 const ChatContext = createContext()
 
-// Default users (used when there's nothing in localStorage)
+
 const defaultUsers = [
   {
     id: 1,
@@ -46,7 +46,7 @@ const defaultUsers = [
 ]
 
 const ChatProvider = ({ children }) => {
-  // Initialize users synchronously from localStorage or defaultUsers
+
   const [users, setUsers] = useState(() => {
     try {
       const stored = localStorage.getItem("users")
@@ -57,11 +57,10 @@ const ChatProvider = ({ children }) => {
     return defaultUsers
   })
 
-  // Initialize selectedUser as null by default so /chat opens without a selected user
-  // (the app will show "No hay usuario seleccionado..." until the user chooses one).
+
   const [selectedUser, setSelectedUser] = useState(() => null)
 
-  // Persist users when they change
+
   useEffect(() => {
     try {
       if (Array.isArray(users)) {
@@ -72,7 +71,7 @@ const ChatProvider = ({ children }) => {
     }
   }, [users])
 
-  // Persist selectedUser when it changes
+
   useEffect(() => {
     try {
       if (selectedUser !== null && selectedUser !== undefined) {

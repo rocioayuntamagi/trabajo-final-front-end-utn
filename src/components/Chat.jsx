@@ -150,8 +150,7 @@ export default function Chat() {
   const toggleOptions = () => setShowOptions(s => !s)
 
   const handleStarred = () => {
-    // toggle starred view (simple local behavior)
-    // you can expand this to persist or navigate
+
     console.log('Mensajes destacados toggled')
     setShowOptions(false)
   }
@@ -220,7 +219,7 @@ export default function Chat() {
             <Link to="/help" title="Help">❓</Link>
 
             <div className="options-container" ref={optionsRef}>
-              <button className="options-toggle" onClick={toggleOptions} aria-expanded={showOptions} title="Menu">⋯</button>
+              <button className="options-toggle" onClick={toggleOptions} aria-expanded={showOptions} title="Menu">👥</button>
               {showOptions && (
                 <div className="options-popup">
                   <button className="option" onClick={handleStarred}>
