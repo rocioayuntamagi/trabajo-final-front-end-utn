@@ -4,7 +4,7 @@ const Help = () => {
   return (
     <div className="help-page">
       <h1>❓ Centro de Ayuda</h1>
-      <p>Bienvenido a la sección de ayuda del chat. Aquí vas a encontrar información sobre cómo utilizar la aplicación, qué tecnologías se usaron para desarrollarla y algunas ideas de mejoras futuras.</p>
+      <p className="help-intro">Bienvenido a la sección de ayuda del chat. Aquí vas a encontrar información sobre cómo utilizar la aplicación, qué tecnologías se usaron para desarrollarla y algunas ideas de mejoras futuras.</p>
 
       <section className="help-section">
         <h2>💡 Funcionamiento general del chat</h2>

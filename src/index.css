@@ -296,7 +296,6 @@ form .text-info {
   border-radius: 10px;
   width: 60%;
   max-width: 540px;
-  /* keep popup from becoming too wide on large screens */
   box-shadow: 10px 10px 15px -5px rgba(0, 0, 0, 0.205);
 }
 
@@ -344,7 +343,6 @@ form .text-info {
   -moz-appearance: none;
   appearance: none;
   padding: 8px 36px 8px 10px;
-  /* room for the arrow */
   border: 1px solid #cfcfcf;
   border-radius: 6px;
   background-color: #f7f9fa;
@@ -459,6 +457,19 @@ form .text-info {
   color: #333;
 }
 
+.help-intro {
+  font-size: 18px;
+  color: #4a4a4a;
+  max-width: 780px;
+  margin: 16px auto 24px auto;
+  line-height: 1.8;
+  text-align: left;
+  background: linear-gradient(90deg, rgba(2, 196, 221, 0.05), rgba(0, 198, 255, 0.02));
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(2, 196, 221, 0.12);
+}
+
 .help-page h1 {
   text-align: center;
   color: #02c4dd;
@@ -468,9 +479,30 @@ form .text-info {
 .help-section {
   margin-bottom: 30px;
   background-color: whitesmoke;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.1);
+  padding: 22px 24px;
+  border-radius: 12px;
+  box-shadow: 6px 8px 20px -8px rgba(2, 196, 221, 0.12);
+  text-align: center;
+}
+
+.help-section h2 {
+  margin-bottom: 12px;
+  font-size: 20px;
+  color: #018cae;
+}
+
+.help-back {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.help-back button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #02c4dd;
+  color: white;
+  cursor: pointer;
 }
 
 .help-section h2 {
@@ -479,8 +511,12 @@ form .text-info {
 }
 
 .help-section ul {
-  list-style-type: disc;
-  padding-left: 25px;
+  list-style: none;
+  padding: 0;
+  margin: 12px auto 0 auto;
+  display: inline-block;
+  text-align: left;
+  min-width: 260px;
 }
 
 .help-footer {
@@ -488,6 +524,43 @@ form .text-info {
   margin-top: 30px;
   font-style: italic;
   color: gray;
+}
+
+.help-section p {
+  font-size: 15px;
+  color: #444;
+  margin: 8px 0 14px 0;
+}
+
+.help-section ul li {
+  padding: 6px 0;
+  line-height: 1.5;
+  position: relative;
+  padding-left: 18px;
+}
+
+.help-section ul li::before {
+  content: "▶";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  color: #02c4dd;
+  font-size: 12px;
+}
+
+/* Dark mode tweaks for help sections */
+body.dark-mode .help-section {
+  background-color: #272727;
+  box-shadow: 6px 8px 20px -8px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .help-section h2 {
+  color: #66d7ee;
+}
+
+body.dark-mode .help-section p,
+body.dark-mode .help-section ul li {
+  color: #e6f7fb;
 }
 
 /*Responsive minimo para mobile*/
