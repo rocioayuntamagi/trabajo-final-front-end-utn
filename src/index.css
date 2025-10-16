@@ -384,6 +384,54 @@ form .text-info {
   cursor: pointer;
 }
 
+/* Options popup in header */
+.options-container {
+  position: relative;
+}
+
+.options-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.options-popup {
+  position: absolute;
+  right: 0;
+  top: 28px;
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+  z-index: 1000;
+}
+
+.options-popup .option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.options-popup .option:hover {
+  background: #f5f5f5;
+}
+
+.options-popup .logout-option:hover {
+  background: #ffecec;
+  color: #c00;
+}
+
 
 .help-page {
   padding: 40px;

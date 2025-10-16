@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useChat } from "../context/ChatContext"
 import { useNavigate, Link } from "react-router-dom"
 
@@ -17,6 +17,8 @@ export default function Chat() {
   // Buscamos el usuario activo
   const user = users.find(u => u.id === selectedUser)
   const navigate = useNavigate()
+  const [showOptions, setShowOptions] = useState(false)
+  const optionsRef = useRef(null)
 
   useEffect(() => {
     // Aplicar el tema actual al montar / cuando cambie
@@ -96,6 +98,7 @@ export default function Chat() {
   // Logout
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn")
+    setShowOptions(false)
     navigate("/")
   }
 
@@ -123,6 +126,31 @@ export default function Chat() {
     setTheme(selectedTheme)
     applyTheme(selectedTheme)
   }
+
+  const toggleOptions = () => setShowOptions(s => !s)
+
+  const handleStarred = () => {
+    // toggle starred view (simple local behavior)
+    // you can expand this to persist or navigate
+    console.log('Mensajes destacados toggled')
+    setShowOptions(false)
+  }
+
+  const handleSelectChat = () => {
+    console.log('Seleccionar chat toggled')
+    setShowOptions(false)
+  }
+
+  // cerrar popup de opciones si se hace click fuera
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (showOptions && optionsRef.current && !optionsRef.current.contains(e.target)) {
+        setShowOptions(false)
+      }
+    }
+    document.addEventListener('mousedown', onDocClick)
+    return () => document.removeEventListener('mousedown', onDocClick)
+  }, [showOptions])
 
 
   return (
@@ -180,7 +208,29 @@ export default function Chat() {
           <button title="Gallery">🖼️</button>
           <button title="Settings" onClick={handleShowPopup}>⚙️</button>
           <Link to="/help" title="Help">❓</Link>
-          <button onClick={handleLogout}>Cerrar Sesión</button>
+
+          <div className="options-container" ref={optionsRef}>
+            <button className="options-toggle" onClick={toggleOptions} aria-expanded={showOptions} title="Menu">⋯</button>
+            {showOptions && (
+              <div className="options-popup">
+                <button className="option" onClick={handleStarred}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3L6.18 20l1.18-6.88L2 9.75l6.91-1L12 2l3.09 6.75L22 9.75l-5.36 3.37L17.82 20z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" /></svg>
+                  Mensajes destacados
+                </button>
+
+                <button className="option" onClick={handleSelectChat}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  Seleccionar chat
+                </button>
+
+                <button className="option logout-option" onClick={handleLogout}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /><path d="M16 17l5-5-5-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /><path d="M21 12H9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  Cerrar Sesión
+                </button>
+              </div>
+            )}
+          </div>
+
         </div>
       </header>
 
