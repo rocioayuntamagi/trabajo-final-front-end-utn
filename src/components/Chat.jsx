@@ -79,7 +79,7 @@ export default function Chat() {
   if (!user) {
     console.warn('Chat: no user found for selectedUser=', selectedUser)
     return (
-      <div className="user-not-found">
+      <div div className="user-not-found">
         <p>No hay usuario seleccionado...</p>
       </div>
     )
@@ -270,7 +270,7 @@ export default function Chat() {
     return (
       <div style={{ padding: 20 }}>
         <h3>Ocurrió un error al mostrar el chat</h3>
-        <pre style={{ whiteSpace: 'pre-wrap', color: 'red' }}>{String(err && err.stack ? err.stack : err)}</pre>
+        <pre pre style={{ whiteSpace: 'pre-wrap', color: 'red' }}>{String(err && err.stack ? err.stack : err)}</pre>
       </div>
     )
   }
