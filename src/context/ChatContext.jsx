@@ -17,7 +17,7 @@ const defaultUsers = [
     id: 2,
     name: "Marita Rodriguez",
     status: "offline",
-    lastSeen: "3 hours ago",
+    lastSeen: "",
     messages: [
       { id: 1, text: "RESPONDEEEE QUE TENGO HAMBREE!", time: "15:00" },
       { id: 2, text: "estoy desde las 12 en el banco!!", time: "15:10" },
@@ -38,7 +38,7 @@ const defaultUsers = [
     id: 4,
     name: "Lucas Hernan Figueroa",
     status: "offline",
-    lastSeen: "1 minute ago",
+    lastSeen: "",
     messages: [
       { id: 1, text: "Estoy en programación, después te mando...", time: "18:59" }
     ]

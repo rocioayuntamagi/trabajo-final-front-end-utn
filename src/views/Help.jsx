@@ -1,6 +1,17 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Help = () => {
+  const navigate = useNavigate()
+
+  const handleBack = () => {
+    try {
+      if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+        document.body.classList.remove('show-chat-on-mobile')
+      }
+    } catch (err) { }
+    navigate('/chat')
+  }
+
   return (
     <div className="help-page">
       <h1>❓ Centro de Ayuda</h1>
@@ -45,7 +56,7 @@ const Help = () => {
         <p>💬 Gracias por usar nuestro chat. Seguimos mejorando cada día.</p>
       </footer>
       <div className="help-back">
-        <Link to="/chat"><button>volver</button></Link>
+        <button onClick={handleBack}>volver</button>
       </div>
     </div>
   );
