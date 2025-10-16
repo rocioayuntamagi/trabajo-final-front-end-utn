@@ -5,18 +5,31 @@ export default function Sidebar() {
   const { users, setSelectedUser } = useChat()
   const [usersToRender, setUsersToRender] = useState(users)
 
-  // 🔄 Cada vez que cambien los usuarios globales, actualizamos la lista a renderizar
+  // Cada vez que cambien los usuarios globales, actualizo la lista a renderizar
   useEffect(() => {
     setUsersToRender(users)
   }, [users])
 
-  // 🔍 Filtro por búsqueda
+  // Filtro por búsqueda
   const handleChange = (event) => {
     const searchTerm = event.target.value.toLowerCase()
     const result = users.filter((user) =>
       user.name.toLowerCase().includes(searchTerm)
     )
     setUsersToRender(result)
+  }
+
+  // Seleccionar usuario y, en móvil, mostrar el chat a pantalla completa
+  const handleSelect = (id) => {
+    setSelectedUser(id)
+    try {
+
+      if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+        document.body.classList.add('show-chat-on-mobile')
+      }
+    } catch (err) {
+      // ignore
+    }
   }
 
   return (
@@ -36,7 +49,7 @@ export default function Sidebar() {
         {usersToRender.map((user) => (
           <li
             key={user.id}
-            onClick={() => setSelectedUser(user.id)}
+            onClick={() => handleSelect(user.id)}
             className="user"
           >
             <img

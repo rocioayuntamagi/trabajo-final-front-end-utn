@@ -2,15 +2,9 @@ import { useState, useEffect, useRef } from "react"
 import { useChat } from "../context/ChatContext"
 import { useNavigate, Link } from "react-router-dom"
 
-
 export default function Chat() {
   const [msg, setMsg] = useState("")
   const [showPopup, setShowPopup] = useState(false);
-
-  // Cargamos el tema guardado (si existe), si no usamos 'light' por defecto
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-  const [username, setUsername] = useState(localStorage.getItem("username") || "Invitado");
-  const [language, setLanguage] = useState(localStorage.getItem("language") || "es");
 
   // Obtenemos del contexto todo lo necesario
   const { users, selectedUser, setUsers } = useChat()
@@ -19,6 +13,11 @@ export default function Chat() {
   const navigate = useNavigate()
   const [showOptions, setShowOptions] = useState(false)
   const optionsRef = useRef(null)
+
+  // Cargamos el tema guardado (si existe), si no usamos 'light' por defecto
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [username, setUsername] = useState(localStorage.getItem("username") || "Invitado");
+  const [language, setLanguage] = useState(localStorage.getItem("language") || "es");
 
   useEffect(() => {
     // Aplicar el tema actual al montar / cuando cambie
@@ -40,7 +39,6 @@ export default function Chat() {
   useEffect(() => {
     console.debug('Chat: selectedUser=', selectedUser, 'users.length=', (users || []).length)
   }, [selectedUser, users])
-
 
   const applyTheme = (themeName) => {
     if (themeName === "dark") {
@@ -79,8 +77,8 @@ export default function Chat() {
   if (!user) {
     console.warn('Chat: no user found for selectedUser=', selectedUser)
     return (
-      <div div className="user-not-found">
-        <p>No hay usuario seleccionado...</p>
+      <div className="user-not-found">
+        <p>Selecciona un usuario</p>
       </div>
     )
   }
@@ -200,6 +198,13 @@ export default function Chat() {
           </section>
         }
         <header className="chat-header">
+          { }
+          <button type="button" aria-label="Volver a contactos" title="Volver" className="mobile-back" onClick={() => document.body.classList.remove('show-chat-on-mobile')}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="mobile-back-label">Volver</span>
+          </button>
           <div>
             <div className="chat-user">
               <img
@@ -270,7 +275,7 @@ export default function Chat() {
     return (
       <div style={{ padding: 20 }}>
         <h3>Ocurrió un error al mostrar el chat</h3>
-        <pre pre style={{ whiteSpace: 'pre-wrap', color: 'red' }}>{String(err && err.stack ? err.stack : err)}</pre>
+        <pre style={{ whiteSpace: 'pre-wrap', color: 'red' }}>{String(err && err.stack ? err.stack : err)}</pre>
       </div>
     )
   }
