@@ -16,7 +16,7 @@ const Login = () => {
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn")
     if (isLoggedIn === "true") {
-      navigate("/chat")
+      navigate("/loading")
     }
   }, [navigate])
 
@@ -28,7 +28,7 @@ const Login = () => {
       localStorage.setItem("isLoggedIn", JSON.stringify(true))
       setMessage("Contraseña valida, serás redirigido.")
       setTimeout(() => {
-        navigate("/chat")
+        navigate("/loading")
       }, 3000)
     } else {
       setError("Contraseña invalida, intentelo nuevamente")

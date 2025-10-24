@@ -4,12 +4,19 @@ import { Messages } from "../views/Messages";
 import { NotFound } from "../views/NotFound";
 import ProtectedRoute from "../components/ProctectedRoute";
 import Help from "../views/Help";
+import Loading from "../views/Loading";
 
 const RouterApp = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/loading"
+          element={
+            <ProtectedRoute>
+              <Loading />
+            </ProtectedRoute>} />
+
         <Route path="/chat"
           element={
             <ProtectedRoute>
